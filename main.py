@@ -1,4 +1,5 @@
 import requests
+import json
 from pprint import pprint
 
 url = 'https://superheroapi.com/api/2619421814940190/search/'
@@ -9,12 +10,11 @@ def intelligence(superhero):
     link = url + superhero
     response = requests.get(link)
 
-    import json
-    dict = json.loads(response.content)
+    data = response.json()
 
-    results = dict['results'][0]
-    powerstats = results['powerstats']
-    intelligence = powerstats['intelligence']
+    results = data.get('results')[0]
+    powerstats = results.get('powerstats')
+    intelligence = powerstats.get('intelligence')
 
     intellects[intelligence] = superhero
 
